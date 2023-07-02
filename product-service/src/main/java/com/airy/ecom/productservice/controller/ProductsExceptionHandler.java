@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 @ControllerAdvice
 public class ProductsExceptionHandler {
 
-
     @ExceptionHandler(value = ProductNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseEntity<CustomErrorResponse> notFoundException(ProductNotFoundException e) {

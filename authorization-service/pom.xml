@@ -11,7 +11,7 @@
 
 	<parent>
 		<groupId>org.airy.ecom</groupId>
-		<artifactId>microservices-new</artifactId>
+		<artifactId>AiryServices</artifactId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
