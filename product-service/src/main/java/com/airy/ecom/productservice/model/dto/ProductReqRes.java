@@ -1,19 +1,23 @@
 package com.airy.ecom.productservice.model.dto;
 
 import com.airy.ecom.productservice.model.Product;
+import com.airy.ecom.productservice.model.ProductAttributes;
+
+import java.util.List;
 
 public class ProductReqRes {
 	
-	private Integer productId;
+	private String productId;
 	private String productName;
-	private String imageUrl;
+	private List<String> imageUrl;
 	private double price;
 	private String desc;
 	private String category;
+	private List<ProductAttributes> attributes;
 	
 	
-	public ProductReqRes(Integer productId, String productName, String imageUrl, double price, String desc,
-			String category) {
+	public ProductReqRes(String productId, String productName, List<String> imageUrl, double price, String desc,
+			String category, List<ProductAttributes> attributes) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -21,9 +25,9 @@ public class ProductReqRes {
 		this.price = price;
 		this.desc = desc;
 		this.category = category;
+		this.attributes = attributes;
 	}  
-	
-	
+
 	public ProductReqRes(Product product) {
 		this.productId = product.getProductId();
 		this.productName = product.getProductName();
@@ -31,17 +35,18 @@ public class ProductReqRes {
 		this.price = product.getPrice();
 		this.desc = product.getDesc();
 		this.category = product.getCategory();
+		this.attributes = product.getAttributes();
 	}
 	
 	public ProductReqRes() {
 		
 	}
 
-	public Integer getProductId() {
+	public String getProductId() {
 		return productId;
 	}
 
-	public void setProductId(Integer productId) {
+	public void setProductId(String productId) {
 		this.productId = productId;
 	}
 
@@ -53,11 +58,11 @@ public class ProductReqRes {
 		this.productName = productName;
 	}
 
-	public String getImageUrl() {
+	public List<String> getImageUrl() {
 		return imageUrl;
 	}
 
-	public void setImageUrl(String imageUrl) {
+	public void setImageUrl(List<String> imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 
@@ -83,6 +88,13 @@ public class ProductReqRes {
 
 	public void setCategory(String category) {
 		this.category = category;
-	}  
-	
+	}
+
+	public List<ProductAttributes> getAttributes() {
+		return attributes;
+	}
+
+	public void setAttributes(List<ProductAttributes> attributes) {
+		this.attributes = attributes;
+	}
 }

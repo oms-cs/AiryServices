@@ -2,15 +2,12 @@ package com.airy.ecom.productservice.controller;
 
 import java.util.List;
 
-import com.airy.ecom.productservice.model.Product;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.airy.ecom.productservice.model.dto.ProductReqRes;
 import com.airy.ecom.productservice.services.ProductsService;
@@ -38,25 +35,35 @@ public class ProductsController {
 	 
 	
 	@GetMapping("/products")
-	public List<ProductReqRes> listAllProducts() {
+	public List<ProductReqRes> listAllProducts(@RequestParam(value = "Page", defaultValue = "0") int Page,
+											   @RequestParam(value = "limit", defaultValue = "10") int limit) {
 		//returns List of Products Fetched from db
-		return productsService.getAllProducts();
+		return productsService.getAllProducts(Page, limit);
 	}
 	
 	@PostMapping("/add-product")
-	public ResponseEntity<?> addProducts(@RequestBody ProductReqRes productReqRes){
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<?> addProducts(@Valid @RequestBody ProductReqRes productReqRes){
 		productsService.addProducts(productReqRes);
-		return ResponseEntity.ok(productReqRes.getProductName());
+		return ResponseEntity.ok("Product Added with Name "+productReqRes.getProductName());
 	}
 	
 	@GetMapping("/{productName}")
-	public Product getProductByName(@PathVariable String productName) {
+	public ProductReqRes getProductByName(@PathVariable String productName) {
 		return productsService.getProductByName(productName);
+	}
+
+	@GetMapping("/search")
+	public List<ProductReqRes> searchProducts(@NotBlank(message = "Enter Search Term") @RequestParam String criteriaPhrase) {
+		return productsService.fullTextSearch(criteriaPhrase);
 	}
 	
 	@GetMapping("/category/{category}")
-	public List<ProductReqRes> getProductsByCategory(@PathVariable String category){
-		return productsService.getProductsByCategory(category);
+	@ResponseStatus(HttpStatus.OK)
+	public List<ProductReqRes> getProductsByCategory(@PathVariable String category
+			, @RequestParam(value = "page", defaultValue = "0") int Page
+			, @RequestParam(value = "limit", defaultValue = "10") int limit){
+		return productsService.getProductsByCategory(category, Page, limit);
 	}
 	
 	
