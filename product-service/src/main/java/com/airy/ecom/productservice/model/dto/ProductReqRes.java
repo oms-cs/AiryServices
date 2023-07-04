@@ -3,9 +3,11 @@ package com.airy.ecom.productservice.model.dto;
 import com.airy.ecom.productservice.model.Product;
 import com.airy.ecom.productservice.model.ProductAttributes;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ProductReqRes {
+public class ProductReqRes implements Serializable {
+	private static final long serialVersionUID = 1L;
 	
 	private String productId;
 	private String productName;

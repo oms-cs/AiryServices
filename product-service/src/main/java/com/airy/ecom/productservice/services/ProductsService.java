@@ -8,6 +8,7 @@ import com.airy.ecom.productservice.repository.ProductsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -36,7 +37,8 @@ public class ProductsService {
 	}
 	
 	
-	//returns all the products listed 
+	//returns all the products listed
+	@Cacheable("products-cache")
 	public List<ProductReqRes> getAllProducts(int Page, int limit){
 
 		Pageable pageable = PageRequest.of(Page, limit);
@@ -48,13 +50,10 @@ public class ProductsService {
 		List<ProductReqRes> products = page.getContent().stream()
 														.map(ProductReqRes::new)
 														.toList();
-		 //List<ProductReqRes> products = productsRepository.findAll().stream()
-				 													//.map(ProductReqRes::new)
-				 													//.toList();
 		 return products;
 	}
 	
-	//adds Product for Sell Listing
+	//adds Product on Sell Listing
 	public void addProducts(ProductReqRes productReqRes) {
 		logger.info("Adding Product : "+productReqRes.toString());
 		productsRepository.save(mapToProduct(productReqRes));
@@ -82,6 +81,7 @@ public class ProductsService {
 				.toList();
 	}
 
+	@Cacheable("products-cache")
 	public List<ProductReqRes> fullTextSearch(String searchPhrase) {
 
 		mongoTemplate.indexOps(Product.class)

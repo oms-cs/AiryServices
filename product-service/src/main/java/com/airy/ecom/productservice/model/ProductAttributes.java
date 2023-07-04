@@ -1,7 +1,9 @@
 package com.airy.ecom.productservice.model;
 
-public class ProductAttributes {
+import java.io.Serializable;
 
+public class ProductAttributes implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String attributeName;
     private String attributeValue;
 

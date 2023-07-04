@@ -49,6 +49,10 @@ public class Product {
 	private List<ProductAttributes> attributes;
 
 
+	//popularity of Product
+	//reviews for product
+
+
 	public Product(String productId, String productName, List<String> imageUrl, double price, String desc,
 			String category, List<ProductAttributes> attributes) {
 		super();
