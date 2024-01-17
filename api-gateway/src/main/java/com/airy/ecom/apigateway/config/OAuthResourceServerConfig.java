@@ -6,6 +6,9 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @Configuration
 public class OAuthResourceServerConfig {
 
@@ -27,5 +30,16 @@ public class OAuthResourceServerConfig {
                 })
                 .oauth2ResourceServer(oAuth2ResourceServerSpec -> oAuth2ResourceServerSpec.jwt(Customizer.withDefaults()))
                 .build();
+    }
+
+
+    public void test(){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("abcdsrs,");
+
+        ArrayList<String> list = (ArrayList<String>) Arrays.asList(sb.toString().split(","));
+
+        System.out.print(list);
     }
 }

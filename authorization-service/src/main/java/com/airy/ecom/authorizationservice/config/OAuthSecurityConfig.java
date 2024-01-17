@@ -34,6 +34,7 @@ public class OAuthSecurityConfig {
     @Autowired
     private final PasswordEncoder passwordEncoder;
 
+
     @Bean
     @Order(PriorityOrdered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain appSecurityFilterChain(HttpSecurity http) throws Exception {
@@ -56,8 +57,9 @@ public class OAuthSecurityConfig {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/client")
-                .redirectUri("http://127.0.0.1:8080/authorized")
+                //.redirectUri("
+                // ")
+                .redirectUri("http://127.0.0.1:3000/authorized/test")
                 .scope(OidcScopes.OPENID)
                 .build();
 
