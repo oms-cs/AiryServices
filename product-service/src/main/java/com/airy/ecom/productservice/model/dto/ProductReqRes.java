@@ -2,19 +2,36 @@ package com.airy.ecom.productservice.model.dto;
 
 import com.airy.ecom.productservice.model.Product;
 import com.airy.ecom.productservice.model.ProductAttributes;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import org.springframework.format.annotation.NumberFormat;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class ProductReqRes implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
+	@JsonIgnore
 	private String productId;
+
+	@NotNull(message = "Product Name Should Not be Null")
 	private String productName;
+
+	@NotNull(message = "Image URL Should Not be Null")
 	private List<String> imageUrl;
+
+	@Pattern(regexp = "\\d+\\.\\d+", message = "price should be Numeric Value")
 	private double price;
+
+	@NotNull(message = "Product Description Should Not be Null")
 	private String desc;
+
+	@NotNull(message = "Category Should Not be Null")
 	private String category;
+
+	@NotNull(message = "Attributes are Mandatory")
 	private List<ProductAttributes> attributes;
 	
 	
